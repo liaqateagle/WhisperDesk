@@ -24,6 +24,12 @@
 
 ---
 
+<p align="center">
+  <img src="image.png" alt="WhisperDesk Screenshot" width="800" />
+</p>
+
+---
+
 ## Features
 
 - **Local & Private** — 100% offline transcription, no cloud, no API keys, no telemetry
