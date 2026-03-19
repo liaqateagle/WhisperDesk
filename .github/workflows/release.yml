@@ -79,8 +79,25 @@ jobs:
 
       - name: Install dependencies (macOS)
         if: matrix.platform == 'macos-latest'
+        run: brew install cmake
+
+      - name: Configure Rust flags (macOS aarch64)
+        if: matrix.platform == 'macos-latest' && matrix.rust_targets == 'aarch64-apple-darwin'
         run: |
-          brew install cmake
+          mkdir -p src-tauri/.cargo
+          cat > src-tauri/.cargo/config.toml << 'EOF'
+          [target.aarch64-apple-darwin]
+          rustflags = ["-Clink-arg=-lc++", "-Clink-arg=-framework", "-Clink-arg=Accelerate"]
+          EOF
+
+      - name: Configure Rust flags (macOS x86_64)
+        if: matrix.platform == 'macos-latest' && matrix.rust_targets == 'x86_64-apple-darwin'
+        run: |
+          mkdir -p src-tauri/.cargo
+          cat > src-tauri/.cargo/config.toml << 'EOF'
+          [target.x86_64-apple-darwin]
+          rustflags = ["-Clink-arg=-lc++", "-Clink-arg=-framework", "-Clink-arg=Accelerate"]
+          EOF
 
       - name: Install dependencies (Ubuntu)
         if: matrix.platform == 'ubuntu-22.04'
