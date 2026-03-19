@@ -63,6 +63,8 @@ jobs:
             rust_target: x86_64-pc-windows-msvc
 
     runs-on: ${{ matrix.platform }}
+    env:
+      MACOSX_DEPLOYMENT_TARGET: '10.15'
 
     steps:
       - uses: actions/checkout@v4
@@ -89,17 +91,19 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf libasound2-dev
 
-      - name: Configure macOS Rust flags
+      - name: Configure macOS build
         if: matrix.platform == 'macos-latest'
         run: |
           mkdir -p src-tauri/.cargo
-          cat > src-tauri/.cargo/config.toml << EOF
+          cat > src-tauri/.cargo/config.toml << 'CARGO_EOF'
           [target.aarch64-apple-darwin]
           rustflags = ["-Clink-arg=-lc++", "-Clink-arg=-framework", "-Clink-arg=Accelerate"]
 
           [target.x86_64-apple-darwin]
           rustflags = ["-Clink-arg=-lc++", "-Clink-arg=-framework", "-Clink-arg=Accelerate"]
-          EOF
+          CARGO_EOF
+          echo "MACOSX_DEPLOYMENT_TARGET=10.15" >> $GITHUB_ENV
+          echo "CMAKE_OSX_DEPLOYMENT_TARGET=10.15" >> $GITHUB_ENV
 
       - name: Install frontend dependencies
         run: npm ci
@@ -108,7 +112,6 @@ jobs:
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MACOSX_DEPLOYMENT_TARGET: '10.15'
         with:
           releaseId: ${{ needs.create-release.outputs.release_id }}
           args: ${{ matrix.args }}
