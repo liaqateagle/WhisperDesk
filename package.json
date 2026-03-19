@@ -1,0 +1,54 @@
+{
+  "name": "whisperdesk",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Free, open-source audio & video transcription. Local. Private. Beautiful.",
+  "author": {
+    "name": "Liaqat Eagle",
+    "url": "https://github.com/liaqateagle"
+  },
+  "homepage": "https://github.com/liaqateagle/whisperdesk",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liaqateagle/whisperdesk"
+  },
+  "license": "MIT",
+  "keywords": [
+    "whisper",
+    "transcription",
+    "speech-to-text",
+    "subtitles",
+    "srt",
+    "parakeet",
+    "tauri",
+    "desktop"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-dialog": "^2",
+    "@tauri-apps/plugin-fs": "^2",
+    "@tauri-apps/plugin-shell": "^2",
+    "framer-motion": "^11",
+    "lucide-react": "^0.460",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "zustand": "^5"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4",
+    "@tauri-apps/cli": "^2",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tailwindcss": "^4",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.3"
+  }
+}
